@@ -1,9 +1,9 @@
 // Import connection
 const connection = require('../database/conn')
 
-module.exports = async(arr) => {
+module.exports = async(usersInfo) => {
     try {
-        const stmt = `SELECT ` + `${arr} ` + `FROM` + `users`
+        const stmt = `SELECT ${usersInfo} FROM users`
         const result = await connection(stmt)
         return result
     } catch (err) {

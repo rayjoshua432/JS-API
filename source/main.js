@@ -10,6 +10,9 @@ app.use(express.json())
 app.use(bodyParser.json())
 app.unsubscribe(bodyParser.urlencoded({ extended: true }))
 
+// Import users route
+const usersRoute = require('../source/routes/users')
+app.use('/users', usersRoute)
 
 // Test the server
 app.listen(port, () => {

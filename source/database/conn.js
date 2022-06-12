@@ -7,21 +7,22 @@ const dbConfig = {
     port: 3306,
     database: 'js-db1',
 }
-const conn = mySql.createConnection(dbConfig)
+const conn = mySql.createPool(dbConfig)
 
 // Export Connection Function
 module.exports = (dbQuery) => {
     return new Promise((resolve, reject) => {
-        conn.connect(error => {
+        conn.getConnection((error, connection) => {
             if (error) {
-                console.log(`An error occurred`)
+                console.log(`An erroror occurred: ${error}`)
             } else {
-                conn.query(dbQuery, (error, result) => {
+                connection.query(dbQuery, (error, result) => {
                     if (error) {
                         reject(error)
                     } else {
                         resolve(result)
                     }
+                    connection.release()
                 })
             }
         })
